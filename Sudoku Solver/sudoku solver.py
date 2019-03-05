@@ -10,29 +10,11 @@ import time                 #for delay
 #easy to copy paste for the next grid
 
 
-''' 
- grid =[ #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        [0,0,0,0,0,0,0,0,0],
-        #     |     |
-        ]
+ 
+initial_grid = [0,0,0,0,0,0,0,0,0]
+                
 
-'''
+
 ############################################################################################ 
 
 size = 9  #size of sudoko grid
@@ -59,6 +41,9 @@ grid =[ #     |     |
         [0,0,7,0,0,0,3,0,0],
         #     |     |
         ]
+
+n = len(grid)
+m = len(grid[0])
 
 
 ############################################################################################  
@@ -125,21 +110,30 @@ win = turtle.Screen()
 win.title("Sudoku solver by dy")
 win.bgcolor("white")
 win.setup(width=600, height=600)
+#win.tracer(0)
 
 
+############################################################################################
 
+############################################################################################
 
 def draw_grid():        #function to draw grid on screen
 
     draw =turtle.Turtle()
-    #draw.speed(0.2)
-    dist = 180
-    draw.goto(0,0) 
+    draw.color('white')
+    draw.hideturtle()
+    draw.goto(-150,-150) 
+    dist = 300
+    draw.speed(1000)
+    draw.color('black')
+    
+    
     for _ in range(4):
         draw.forward(dist)
-        draw.left(90)
+        draw.left(90)           #90 is angle here not distance
     
-    a=20
+
+    a=33.33
     for _ in range(4):
         draw.forward(a)
         draw.left(90)
@@ -162,19 +156,48 @@ def draw_grid():        #function to draw grid on screen
         draw.forward(dist)
         draw.left(90)
 
-
-
 draw_grid()
-time.sleep(100)
-
 
 ############################################################################################
+
+def print_numbers():
+    text = turtle.Turtle()
+    text.color('white')
+    text.goto(0,250)
+    text.hideturtle()
+    text.color('black')
+    text.write("SUDOKU - SOLVER",align='center',font=('COURIER',24,'normal'))
+    text.color('white')
+    #text.setposition(0,150)
+    x= " "
+    '''
+    for i in grid:
+        text.color('black')
+        text.write(grid[8-i],align='center',font=('COURIER',15,'normal'))
+        text._newLine()
+        text.color('white')
+        text.goto(0,i*15)
+    '''
+    b=120
+    text.color('black')
+    text.up()                   #disables line that is drawn by turtle
+    for i in grid:
+        text.setposition(180,b)
+        b-=35
+        c=1
+        for j in reversed(i):
+            c+=6
+            text.write(str(j)+x*c,align='center',font=('COURIER',14,'normal'))
+            #pos = text.position()
+          
+
+print(print_numbers())
 
 ############################################################################################ 
 #this is the heart and soul of  sudoko_Solver
 #this solves the gird using back_tracking
-
 '''
+
 def solve_sudoku():
     row = 0
     col = 0
@@ -206,3 +229,4 @@ else:
 
 '''
 ############################################################################################
+win.exitonclick()
